@@ -25,10 +25,20 @@
 
 
 <label>Trigger Type</label>
-<select id="triggerType">
-<option value="daily">Daily</option>
+<select id="triggerType" value={triggerType} onChange={e => setTriggerType(e.target.value)} className="border p-2 rounded w-full">
 <option value="logon">At Logon</option>
 <option value="startup">At Startup</option>
+<option value="time">One Time</option>
+<option value="daily">Daily</option>
+<option value="weekly">Weekly</option>
+<option value="monthly">Monthly</option>
+<option value="idle">On Idle</option>
+<option value="event">On Event</option>
+<option value="registration">On Task Registration</option>
+<option value="sessionConnect">On Session Connect</option>
+<option value="sessionDisconnect">On Session Disconnect</option>
+<option value="workstationLock">On Workstation Lock</option>
+<option value="workstationUnlock">On Workstation Unlock</option>
 </select>
 
 
