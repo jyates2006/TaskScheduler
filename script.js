@@ -1,33 +1,4 @@
 function generateXML(data) {
-let triggerXML = "";
-
-
-if (data.triggerType === "daily") {
-triggerXML = `
-<Trigger>
-<CalendarTrigger>
-<StartBoundary>${data.startDate}T${data.startTime}:00</StartBoundary>
-<ScheduleByDay>
-<DaysInterval>1</DaysInterval>
-</ScheduleByDay>
-</CalendarTrigger>
-</Trigger>`;
-} else if (data.triggerType === "logon") {
-triggerXML = `
-<Trigger>
-<LogonTrigger />
-</Trigger>`;
-} else if (data.triggerType === "startup") {
-triggerXML = `
-<Trigger>
-<BootTrigger />
-</Trigger>`;
-}
-
-
-return `<?xml version="1.0" encoding="UTF-16"?>
-<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
-<RegistrationInfo>
 <Date>${new Date().toISOString()}</Date>
 <Author>${data.author}</Author>
 <Description>${data.description}</Description>
@@ -81,4 +52,31 @@ const data = {
 taskName: document.getElementById("taskName").value,
 description: document.getElementById("description").value,
 author: document.getElementById("author").value,
+triggerType: document.getElementById("triggerType").value,
+startTime: document.getElementById("startTime").value || "00:00",
+startDate: new Date().toISOString().split("T")[0],
+programPath: document.getElementById("programPath").value,
+arguments: document.getElementById("arguments").value,
+};
+
+
+const xml = generateXML(data);
+output.value = xml;
+downloadBtn.classList.remove("hidden");
+});
+
+
+// Download XML
+function download(filename, text) {
+const blob = new Blob([text], {type: "application/xml"});
+const url = URL.createObjectURL(blob);
+const a = document.createElement("a");
+a.href = url;
+a.download = filename;
+a.click();
+}
+
+
+downloadBtn.addEventListener("click", () => {
+download("task.xml", output.value);
 });
