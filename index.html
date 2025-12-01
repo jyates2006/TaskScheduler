@@ -1,62 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Task Scheduler XML Generator</title>
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
-<div class="container">
-<h1>Task Scheduler XML Generator</h1>
+<button type="submit">Generate XML</button>
 
 
-<form id="taskForm">
-<label>Task Name</label>
-<input type="text" id="taskName" required />
+<!-- Trigger UI Fields -->
+<div id="triggerOptions" class="space-y-4 mt-4">
+<!-- One-time / Daily / Weekly / Monthly start date/time -->
+<div id="commonTimeFields" class="hidden">
+<label class="block mt-2 font-semibold">Start Date</label>
+<input type="date" id="startDate" class="border p-2 rounded w-full" />
 
 
-<label>Description</label>
-<textarea id="description"></textarea>
-
-
-<label>Author</label>
-<input type="text" id="author" placeholder="DOMAIN\\User or PC\\User" />
-
-
-<label>Trigger Type</label>
-<select id="triggerType" value={triggerType} onChange={e => setTriggerType(e.target.value)} className="border p-2 rounded w-full">
-<option value="logon">At Logon</option>
-<option value="startup">At Startup</option>
-<option value="time">One Time</option>
-<option value="daily">Daily</option>
-<option value="weekly">Weekly</option>
-<option value="monthly">Monthly</option>
-<option value="idle">On Idle</option>
-<option value="event">On Event</option>
-<option value="registration">On Task Registration</option>
-<option value="sessionConnect">On Session Connect</option>
-<option value="sessionDisconnect">On Session Disconnect</option>
-<option value="workstationLock">On Workstation Lock</option>
-<option value="workstationUnlock">On Workstation Unlock</option>
-</select>
-
-
-<div id="dailyOptions" class="hidden">
-<label>Start Time</label>
-<input type="time" id="startTime" />
+<label class="block mt-2 font-semibold">Start Time</label>
+<input type="time" id="startTime" class="border p-2 rounded w-full" />
 </div>
 
 
-<label>Action: Program Path</label>
-<input type="text" id="programPath" required />
+<!-- Weekly -->
+<div id="weeklyOptions" class="hidden">
+<label class="block mt-2 font-semibold">Days of Week</label>
+<select id="weeklyDays" multiple class="border p-2 rounded w-full">
+<option>Monday</option>
+<option>Tuesday</option>
+<option>Wednesday</option>
+<option>Thursday</option>
+<option>Friday</option>
+<option>Saturday</option>
+<option>Sunday</option>
+</select>
+</div>
 
 
-<label>Arguments</label>
-<input type="text" id="arguments" />
+<!-- Monthly -->
+<div id="monthlyOptions" class="hidden">
+<label class="block mt-2 font-semibold">Days of Month</label>
+<input type="text" id="monthlyDays" placeholder="e.g. 1,15,31" class="border p-2 rounded w-full" />
+</div>
 
 
-<button type="submit">Generate XML</button>
+<!-- Idle Trigger -->
+<div id="idleOptions" class="hidden">
+<label class="block mt-2 font-semibold">Idle Duration (minutes)</label>
+<input type="number" id="idleMinutes" value="10" class="border p-2 rounded w-full" />
+</div>
+
+
+<!-- Event Trigger -->
+<div id="eventOptions" class="hidden">
+<label class="block mt-2 font-semibold">Event Log</label>
+<input type="text" id="eventLog" value="System" class="border p-2 rounded w-full" />
+
+
+<label class="block mt-2 font-semibold">Event Source</label>
+<input type="text" id="eventSource" placeholder="e.g. Microsoft-Windows-Kernel-Power" class="border p-2 rounded w-full" />
+
+
+<label class="block mt-2 font-semibold">Event ID</label>
+<input type="number" id="eventID" placeholder="e.g. 41" class="border p-2 rounded w-full" />
+</div>
+</div>
+
+
 </form>
 
 
